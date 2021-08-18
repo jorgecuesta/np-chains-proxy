@@ -1,24 +1,30 @@
 ### NGINX with Auto Certbot renew
 
-This repository allow node pilot user to expose their Chains to the world to be accessed by other validators.
+This repository allows node pilot user to expose their Chains to the world to be accessed by other validators.
+
+This can be handled with 2 different compose, with or without monitor. In case of monitor it is handled with Nginx Amplify that is 
+free up to 5 servers, and you can customize as much dashboard as you need.
 
 ### How this work?
 
 This will launch with `docker-compose` a set of 2 containers, certbot & nginx. They will be connected to the node pilot network on docker named by them: `node-manager-network`.
 That allow us to be able to reach chains using their internal network names used by validators, so when you query them with that you take advantage of the internal load balance created by them for each chain.
 
-You will look this is exposing chains over ssl but in a custom port because 443 is used by nginx that expose pokt validators by Node Pilot, so, if you dont have validators, you should be able to use normal 443
+You will look this is exposing chains over ssl but in a custom port because 443 is used by nginx that expose pokt validators by Node Pilot, so, if you don't have validators, you should be able to use normal 443
 
 ### Requirements:
 - docker-compose
 - edit few files
 - update .env
+- API KEY from [Nginx Amplify](https://amplify.nginx.com/) if you want to use `with-monitor` compose. 
 
 ### Hands on it
 
 #### Update .env
 
 Edit `.env` file with your base domain. If you want to expose your chain on: eth-mainnet.mydomain.com, so fill it with `DOMAIN=yourdomain.com`
+
+In case you will use `with-monitor` compose you will need also to specify `API_KEY=<nginx-amplify-key>`
 
 #### Change proxy template to forward chains
 

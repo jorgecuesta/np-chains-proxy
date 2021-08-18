@@ -1,0 +1,17 @@
+resolver 127.0.0.11 valid=10s; # 127.0.0.1 comes from /etc/resolv.conf on the nginx container
+
+server {
+     listen [::]:80;
+     listen 80 default_server;
+     server_name eth-mainnet.${DOMAIN} fuse-mainnet.${DOMAIN} xdai-mainnet.${DOMAIN};
+
+     location / {
+       return 301 https://$host$request_uri;
+       auth_basic off;
+     }
+
+}
+
+##############################################################
+# Add any server block below this block. Please read README.md
+##############################################################
